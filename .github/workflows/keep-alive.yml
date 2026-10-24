@@ -1,0 +1,15 @@
+name: Keep Streamlit App Active
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Visit Streamlit App
+        run: curl -fsS --max-time 30 "${APP_URL}" -o /dev/null
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
